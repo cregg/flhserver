@@ -8,7 +8,7 @@ import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuth1RequestToken
 import com.redis.RedisClient
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action, Controller, Cookie}
 
 class SessionController extends Controller{
 
@@ -34,7 +34,9 @@ class SessionController extends Controller{
       case (oauthToken: OAuth1RequestToken, oauthSecret: String) => {
         val token = oAuthService.getAccessToken(oauthToken, oauthSecret)
         redis.set(token.getToken, token.getTokenSecret)
-        Ok(Json.toJson(Map("token" -> token.getToken)))
+        Ok(views.html.stats()).withCookies(
+          Cookie("auth_token", token.getToken, maxAge = Some(20), httpOnly = false)
+        )
       }
       case _ => Ok(Json.toJson(Map("error" -> "Couldn't get token.")))
     }
