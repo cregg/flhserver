@@ -1,0 +1,386 @@
+html, body {
+	font-size: 16px;
+	height: 100%;
+	width: 100%;
+	background-color: #1E0B21;
+	overflow-x: hidden;
+}
+
+.stats-page {
+	background-color: #001A21;
+}
+
+input {
+	text-indent: 5%;
+	color: #333;
+	font-family: roboto, sans-serif;
+	font-weight: 100;
+}
+
+/*.container {
+	margin-left: 0;
+}*/
+
+.login-form {
+	padding: 70px 90px 50px 90px;
+}
+
+.intro-text {
+	padding: 0px 90px 50px 90px;
+}
+
+.form-control {
+	height: 23em;
+	border-radius: 60px;
+	background-color: #413044;
+	border-color: #777;
+}
+
+.login-title {
+	text-align: center;
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 3.4rem;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.btn {
+	width: 75%;
+	height: 15%;
+	margin: 5% 20% 2% 12%;
+	font-size: 1.5em;
+	text-align: center;
+	border-radius: 80px;
+	background-color: #C36A3F;
+}
+
+.teamid-button {
+	width: 350px;
+	height: 15%;
+	margin: 3% 20% 14% 37%;
+	font-size: 1.5em;
+	text-align: center;
+	border-radius: 80px;
+	background-color: #C36A3F;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.yahoo-account {
+	font-size: 1.05em;
+	text-decoration: none;
+	margin: 0 12% 0 24%;
+	color: #999;
+}
+
+.yahoo-account:hover {
+	text-decoration: none;
+	color: #888;
+}
+
+.yahoo-account:visited {
+	text-decoration: none;
+}
+
+
+.intro-title {
+	font-size: 2em;
+	color: #aacbff;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+}
+
+.id-input {
+	height: 80px;
+	width: 50%;
+	margin: 3% 16% 0 16%;
+	border-radius: 20px;
+	background-color: #554757;
+	border: 0.5px solid #fff;
+	font-size: 2.5em;
+	font-weight: 100;
+}
+
+.teamid-pos {
+	margin: 1.5% 0 2% 12.5%;
+	font-family: roboto;
+	font-weight: 100;
+	font-size: 2.5em;
+}
+
+.centered-form {
+	margin: 0 5% 0 5%;
+}
+
+.login-name {
+	font-size: 5em;
+	color: #aacbff;
+	font-family: roboto, sans-serif;
+	font-weight: 100;
+	opacity: 0.8;
+	margin-top: 4%;
+	margin-left: 12%;
+}
+
+.intro-blurb {
+	font-size: 1.3em;
+	color: #fff;
+	opacity: 0.75;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+	margin-bottom: 30px;
+}
+
+.footer {
+	padding-bottom: 0;
+	text-align: center;
+	margin-bottom: 3%;
+	margin-top: 3%;
+}
+
+.navbar-nav {
+	margin-left: 41%;
+	color: #fff;
+}
+
+.nav-item {
+	font-size: 1.2em;
+	margin-right: 60px;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.fs-logo {
+	width: 87%;
+	margin: 40px 0 0 50px;
+}
+
+.fs-screens {
+	width: 100%;
+}
+
+/* DATA VISUALIZATION PAGE */
+
+.team-results {
+	font-family: roboto, sans-serif;
+	font-weight: 100;
+	font-size: 2em;
+	color: #fff;
+	opacity: 0.9;
+	margin-left: 12%;
+	margin-top: 5%;
+}
+
+.newid-input {
+	width: 55%;
+	height: 50px;
+	border-radius: 8px;
+	background-color: #002631;
+	border: 1px solid #999;
+	margin-left: 12%;
+	margin-top: 3%;
+}
+
+.newid-button {
+	width: 130px;
+	height: 15%;
+	font-size: 1.5em;
+	margin-left: 2%;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #C36A3F;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.visual-data {
+	font-family: roboto, sans-serif;
+	font-size: 1.8em;
+	color: #aacbff;
+	opacity: 0.75;
+	font-weight: 200;
+	margin-left: 12%;
+	margin-top: 5%;
+}
+
+.data-heading {
+	font-family: roboto, sans-serif;
+	font-weight: 300;
+	font-size: 1.7em;
+	color: #fff;
+	opacity: 0.9;
+	margin-left: 3%;
+	margin-top: 3%;	
+}
+
+.data-des {
+	font-family: roboto, sans-serif;
+	font-weight: 100;
+	font-size: 1.2em;
+	color: #fff;
+	opacity: 0.7;
+	margin-left: 3%;
+	margin-top: 1%;	
+	margin-right: 3%;
+}
+
+.data-selector-draft, .data-selector-goalie {
+	border: 2px solid #fff;
+	border-radius: 15px;
+	margin: 5% 12% 5% 12%;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+    text-decoration:none;
+}
+
+
+.data-selector-draft:hover, .data-selector-goalie:hover {
+	border: 2px solid #C36A3F;
+}
+
+.active {
+	border-radius: 15px;
+	margin: 5% 12% 5% 12%;
+	border: 2px solid #C36A3F;
+}
+
+.inactive {
+	border-radius: 15px;
+	margin: 5% 12% 5% 12%;
+	border: 2px solid #fff;
+}
+
+.data-visuals {
+	font-family: roboto, sans-serif;
+	font-size: 2em;
+	color: #aacbff;;
+	opacity: 0.75;
+	font-weight: 200;
+	margin-left: 12%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	text-transform: uppercase;
+}
+
+#dp-score {
+	color: #fff;
+	font-weight: 300;
+}
+
+canvas {
+	padding-right: 12%;
+}
+
+#hidden {
+	display: none;
+}
+
+/* larger than mobile */
+@media (max-width: 400px){
+	
+	.login-title {
+		font-size: 1.6em;
+		margin-top: 28%;
+	}
+	
+	.yahoo-account {
+		font-size: 0.7em;
+	}
+	.form-control {
+		width: 100%;
+	}
+	.fs-logo {
+		width: 50%;
+		padding-bottom: 20px;
+	}
+
+	.login-form {
+		min-width: 100%;
+		padding: 10% 2% 0 2%;
+	}
+
+	.yahoo-login {
+		width: 80%;
+		font-size: 1.5em;
+	}
+
+	.intro-text {
+		width: 100%;
+		padding: 15% 4% 10% 4%;
+	}
+
+
+}
+/*
+@media (min-width: 580px){
+	
+	.login-title {
+		font-size:1.8em;
+		margin-top: 18%;
+	}
+	
+	.yahoo-account {
+		font-size: 0.9em;
+	}
+	.form-control {
+		width: 100%;
+	}
+	.fs-logo {
+		width: 50%;
+		padding-bottom: 20px;
+	}
+
+	.login-form {
+		width: 100%;
+	}
+}*/
+
+@media (min-width: 749px){
+	
+	.login-title {
+		font-size: 2.4em;
+		margin-top: 80px;
+	}
+
+	.yahoo-account {
+		font-size: 0.8em;
+	}
+	.form-control {
+		width: 100%;
+	}
+
+	.fs-logo {
+		width: 40%;
+		padding-bottom: 20px;
+	}
+	
+}
+
+@media (min-width: 992px){
+	.login-title {
+		font-size: 2em;
+	}
+
+	.yahoo-account {
+		font-size: 0.7em;
+	}
+
+	.yahoo-login {
+		font-size: 1em;
+	}
+
+	.form-control {
+		width: 120%;
+	}
+	.fs-logo {
+		width: 80%;
+	}
+}
+
+

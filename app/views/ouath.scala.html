@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6//assets/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin= "anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
+  </head>
+  <body>
+  	<nav class="navbar navbar-toggleable-md navbar-inverse">
+		  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <a class="navbar-brand" href="#"><img src="/assets/img/fantasy-logo2.png" alt="fantasy stats logo" class="fs-logo"></a>
+		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		    <div class="navbar-nav nav-right">
+		      <a class="nav-item nav-link" href="#">About<span class="sr-only">(current)</span></a>
+		      <a class="nav-item nav-link" href="#">Tour</a>
+		      <a class="nav-item nav-link" href="#">Contact</a>
+		    </div>
+		  </div>
+		</nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 centered-form">
+        <form action="">
+          <input type="text" name="teamid" class="id-input" id="token" style="color: #fff"> 
+          <input type="text" name="teamid" class="id-input" id="secret" style="color: #fff"> 
+          <input type="button" class="btn btn-warning" id ="btn-click" onclick="location.href='#';" value="Submit" />
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+    <div class="container">
+    <span class="text-muted">Copyright 2017. Made with ♡ by Annie and Craig.</span></div>
+    </footer>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+      $('#btn-click').click(function(e){
+        var token = $('#token').val();
+        var secret = $('#secret').val();
+
+      $.getJSON("http://192.168.0.13:9000/v1/sessions/callback?oauth_token=" + token + "&oauth_verifier=" + secret, function getOath(data) {
+        const token = data.token;
+
+        localStorage.setItem('token', token);
+
+        console.log(token)
+
+        });
+      });
+
+
+    </script>
+  </body>
+</html>

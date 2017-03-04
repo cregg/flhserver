@@ -1,0 +1,90 @@
+{
+  "corePicks": [
+    {
+      "id": "363.p.3637",
+      "name": "Alex Ovechkin",
+      "rank": 2,
+      "draftPos": 1
+    },
+    {
+      "id": "363.p.3663",
+      "name": "Cory Schneider",
+      "rank": 122,
+      "draftPos": 24
+    },
+    {
+      "id": "363.p.3705",
+      "name": "Dustin Byfuglien",
+      "rank": 11,
+      "draftPos": 25
+    },
+    {
+      "id": "363.p.5425",
+      "name": "Nikita Kucherov",
+      "rank": 22,
+      "draftPos": 48
+    },
+    {
+      "id": "363.p.5980",
+      "name": "Nathan MacKinnon",
+      "rank": 155,
+      "draftPos": 49
+    },
+    {
+      "id": "363.p.5632",
+      "name": "Torey Krug",
+      "rank": 108,
+      "draftPos": 73
+    },
+    {
+      "id": "363.p.4683",
+      "name": "Matt Duchene",
+      "rank": 319,
+      "draftPos": 96
+    },
+    {
+      "id": "363.p.3861",
+      "name": "David Backes",
+      "rank": 105,
+      "draftPos": 97
+    },
+    {
+      "id": "363.p.4684",
+      "name": "Evander Kane",
+      "rank": 88,
+      "draftPos": 121
+    },
+    {
+      "id": "363.p.5039",
+      "name": "Radko Gudas",
+      "rank": 151,
+      "draftPos": 145
+    },
+    {
+      "id": "363.p.4901",
+      "name": "Sergei Bobrovsky",
+      "rank": 19,
+      "draftPos": 168
+    }
+  ],
+  "waiverPicks": [],
+  "bestPick": {
+    "id": "363.p.4901",
+    "name": "Sergei Bobrovsky",
+    "rank": 19,
+    "draftPos": 168
+  },
+  "worstPick": {
+    "id": "363.p.4683",
+    "name": "Matt Duchene",
+    "rank": 319,
+    "draftPos": 96
+  },
+  "mostAccurate": {
+    "id": "363.p.3637",
+    "name": "Alex Ovechkin",
+    "rank": 2,
+    "draftPos": 1
+  },
+  "score": -255
+}

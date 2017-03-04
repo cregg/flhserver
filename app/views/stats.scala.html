@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
+  </head>
+  <body class="stats-page">
+  	<nav class="navbar navbar-toggleable-md navbar-inverse">
+		  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <a class="navbar-brand" href="#"><img src="/assets/img/fantasy-logo2.png" alt="fantasy stats logo" class="fs-logo"></a>
+		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		    <div class="navbar-nav nav-right">
+		      <a class="nav-item nav-link" href="#">About<span class="sr-only">(current)</span></a>
+		      <a class="nav-item nav-link" href="#">Tour</a>
+		      <a class="nav-item nav-link" href="#">Contact</a>
+		    </div>
+		  </div>
+		</nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <h1 class="team-results">Draft Results for <strong><span id="team-name"></span></strong></h1>
+          <form action="javascript:alert( 'success!' );">
+            <input type="text" name="teamid" placeholder="Enter another Team ID:" class="newid-input" id="newTeamID" value="" style="color: #fff; font-size: 1.5em;"> 
+            <button type="button" class="newid-button btn-warning" id="showNewData">Search</button>
+          </form>
+          <h2 class="visual-data">What data would you like to see?</h2>
+          <a href="#">
+          <div class="data-selector-draft">
+            <h3 class="data-heading">Draft Picks Score</h3>
+            <p class="data-des">See how well your draft picks have performed so far. Your score is based on how well your team is playing, relative to their draft position.</p>
+          </div>
+          </a>
+          <a href="#">
+          <div class="data-selector-goalie">
+            <h3 class="data-heading">Choose Your Starting Goalie</h3>
+            <p class="data-des">Not sure who to pick as your starting goalie? We'll deliver live-updates to your phone, so you can pick your starting goalie in time for the next game.</p>
+          </div>
+          </a>
+
+        </div>
+        <div class="col-lg-6 data-graphs">
+            <span></span>
+            <h2 class="data-visuals" id="test">Draft Picks Score: <span id="dp-score"></span></h2>
+            <canvas id="barChart" width="500" height="300"></canvas>
+<!--           <canvas id="goalieChart" width="500" height="300">Coming Soon!</canvas> -->
+            <div class="coming-soon"></div>
+
+              <!-- Chart.js CDN -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+          <script src="js/graphdata.js"></script>
+
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+    <div class="container">
+    <span class="text-muted">Copyright 2017. Made with ♡ by Annie and Craig.</span></div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
