@@ -1,8 +1,12 @@
 var token = localStorage['token'];
 console.log(token);
 
+$(document).ready(function(){
+   storeAuthCode("auth_token");
+});
 
 $('#showNewData').click(function(e){
+  console.log(getCookie("auth_token"));
   var teamID = $('#newTeamID').val();
   console.log(teamID);
   showTeamJSON(teamID);
@@ -59,13 +63,11 @@ function showPlayerData(data) {
     //     score.push(data.corePicks[i].draftPos - data.corePicks[i].rank);
     // }
 
-  const names = data.corePicks.map(x => x.name)
-  const score = data.corePicks.map(x => x.draftPos - x.rank)
+  const names = data.corePicks.map(x => x.name);
+  const score = data.corePicks.map(x => x.draftPos - x.rank);
 
   $("#dp-score").html(finalScore);
   $('#team-name').html(teamName);
-
-
 
   const draftPickData = document.getElementById("barChart");
   let playerChart = new Chart(draftPickData, {
@@ -117,4 +119,21 @@ function showPlayerData(data) {
           }
       }
   });
+}
+
+function storeAuthCode(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            localStorage.setItem("token", c.substring(name.length, c.length));
+        }
+    }
+
+    return "";
 }
