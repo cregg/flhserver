@@ -26,7 +26,8 @@ input {
 }
 
 .intro-text {
-	padding: 0px 90px 50px 90px;
+	padding: 0px 0px 50px 90px;
+	margin-top: 3%;
 }
 
 .form-control {
@@ -49,11 +50,12 @@ input {
 .btn {
 	width: 75%;
 	height: 15%;
-	margin: 5% 20% 2% 12%;
+	margin: 5% 12% 2% 12%;
 	font-size: 1.5em;
 	text-align: center;
 	border-radius: 80px;
 	background-color: #C36A3F;
+	cursor: pointer;
 }
 
 .teamid-button {
@@ -72,12 +74,13 @@ input {
 .yahoo-account {
 	font-size: 1.05em;
 	text-decoration: none;
-	margin: 0 12% 0 24%;
+	margin: 0 20% 0 24%;
 	color: #999;
+	float: right;
 }
 
 .yahoo-account:hover {
-	text-decoration: none;
+	text-decoration: underline;
 	color: #888;
 }
 
@@ -130,7 +133,7 @@ input {
 	color: #fff;
 	opacity: 0.75;
 	font-family: roboto, sans-serif;
-	font-weight: 300;
+	font-weight: 100;
 	margin-bottom: 30px;
 }
 
@@ -282,21 +285,26 @@ canvas {
 }
 
 /* larger than mobile */
-@media (max-width: 400px){
+
+
+
+@media (max-width: 991px){
 	
 	.login-title {
-		font-size: 1.6em;
-		margin-top: 28%;
+		font-size: 2em;
+		margin-top: 18%;
 	}
 	
 	.yahoo-account {
-		font-size: 0.7em;
+		font-size: 1em;
+		float: right;
+
 	}
 	.form-control {
 		width: 100%;
 	}
 	.fs-logo {
-		width: 50%;
+		width: 45%;
 		padding-bottom: 20px;
 	}
 
@@ -312,7 +320,7 @@ canvas {
 
 	.intro-text {
 		width: 100%;
-		padding: 15% 4% 10% 4%;
+		padding: 10% 4% 10% 4%;
 	}
 
 
@@ -340,8 +348,8 @@ canvas {
 		width: 100%;
 	}
 }*/
-
-@media (min-width: 749px){
+/*
+@media (min-width: 649px){
 	
 	.login-title {
 		font-size: 2.4em;
@@ -360,9 +368,67 @@ canvas {
 		padding-bottom: 20px;
 	}
 	
+}*/
+
+
+
+@media (min-width: 992px) and (max-width: 1199px){
+	.login-title {
+		font-size: 2em;
+		margin-top: 25%;
+	}
+
+	.yahoo-account {
+		font-size: 0.8em;
+	}
+
+	.yahoo-login {
+		font-size: 1.4em;
+
+	}
+
+	.form-control {
+		width: 100%;
+	}
+	.fs-logo {
+		width: 80%;
+	}
+
+	.login-form {
+		padding: 0;
+		margin-top: 8%;
+	}
 }
 
-@media (min-width: 992px){
+@media (min-width: 1200px) {
+	.login-title {
+		font-size: 2em;
+		margin-top: 20%;
+	}
+
+	.yahoo-account {
+		font-size: 1em;
+	}
+
+	.yahoo-login {
+		font-size: 1.em;
+
+	}
+
+	.form-control {
+		width: 100%;
+	}
+	.fs-logo {
+		width: 80%;
+	}
+
+	.login-form {
+		padding: 0;
+		margin-top: 8%;
+	}
+}
+
+/*@media (max-width: 992px){
 	.login-title {
 		font-size: 2em;
 	}
@@ -372,7 +438,7 @@ canvas {
 	}
 
 	.yahoo-login {
-		font-size: 1em;
+		font-size: 1.em;
 	}
 
 	.form-control {
@@ -382,5 +448,5 @@ canvas {
 		width: 80%;
 	}
 }
-
+*/
 
