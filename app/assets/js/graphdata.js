@@ -6,7 +6,6 @@ $(document).ready(function(){
 });
 
 $('#showNewData').click(function(e){
-  console.log(getCookie("auth_token"));
   var teamID = $('#newTeamID').val();
   console.log(teamID);
   showTeamJSON(teamID);

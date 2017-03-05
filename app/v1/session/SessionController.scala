@@ -12,8 +12,8 @@ import play.api.mvc.{Action, Controller, Cookie}
 
 class SessionController extends Controller{
 
-  val key = System.getProperty("YAHOO_KEY")
-  val secret = System.getProperty("YAHOO_SECRET")
+  val key = "dj0yJmk9VjEyMzZleFZCMnAxJmQ9WVdrOVJWRnpWM0IwTlRnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD03ZA--"
+  val secret = "5be45ab806ebd392bfd04100ef2c2140ed9afc03"
 
   val oAuthService = new ServiceBuilder()
     .apiKey(key)
