@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/fantasy-stats-flhserver -Dhttp.port=$PORT -Dplay.crypto.secret="85c1f668-acd5-428e-909f-100c9a8c9abd"
+web: target/universal/stage/bin/play-rest-api -Dhttp.port=$PORT -Dplay.crypto.secret="85c1f668-acd5-428e-909f-100c9a8c9abd"
