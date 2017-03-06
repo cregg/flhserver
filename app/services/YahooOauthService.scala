@@ -73,8 +73,8 @@ class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aServ
 
 object YahooOauthService {
 
-  val key = System.getProperty("YAHOO_KEY")
-  val secret = System.getProperty("YAHOO_SECRET")
+  val key = System.getenv("YAHOO_KEY")
+  val secret = System.getenv("YAHOO_SECRET")
 
   val oAuthService: OAuth10aService = new ServiceBuilder()
     .apiKey(key)
