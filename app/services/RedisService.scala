@@ -16,7 +16,7 @@ import scala.util.{Properties, Try}
 object RedisService {
 
 //  val redis = if(System.getenv("heroku") == null) new RedisClient("localhost", 6379) else new RedisClient("redis://h:p9324402001a0dc7aa058a04e55de64c49b2a609afbfa371b93973a94ffd30c65@ec2-34-198-124-158.compute-1.amazonaws.com", 40769)
-  val redis = Properties.envOrNone("REDISCLOUD_URL") match {
+  val redis = Properties.envOrNone("REDIS_URL") match {
     case Some(redisUrl) =>
       val redisUri = new URI(redisUrl)
       val host = redisUri.getHost
