@@ -16,23 +16,41 @@ $('.data-selector-goalie').click(function() {
 });
 
 
-
-/* ***************************
-  Enable Smooth Scrolling
-  Author: Chris Coyier
-  URL:  CSS-Tricks.com
-***************************** */
-
-// Enable Smooth Scrolling ...  by Chris Coyier of CSS-Tricks.com
-	$('a[href*="#"]:not([href="#"]):not([href="#show"]):not([href="#hide"])').click(function() {
-		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-			var target = $(this.hash);
-			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-			if (target.length) {
-				$('html,body').animate({
-					scrollTop: target.offset().top
-				}, 1000);
-				return false;
-			}
+$('a[href*="#"]:not([href="#"]):not([href="#show"]):not([href="#hide"])').click(function() {
+	if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		var target = $(this.hash);
+		target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		if (target.length) {
+			$('html,body').animate({
+				scrollTop: target.offset().top
+			}, 1000);
+			return false;
 		}
-	});
+	}
+});
+
+/*
+
+	
+Scroll Up Button 
+http://mou.me.uk/2012/05/18/animated-scrolling-back-to-top-link-using-jquery/
+
+*/
+
+
+$(document).ready(function() {
+   $('.back-to-top').css('display', 'none');
+    
+    $('a.back-to-top').click(function(e){
+        $('html, body').animate({scrollTop:0}, 'slow');
+        e.preventDefault();
+    });
+
+    $(window).scroll(function() {
+        if ($('body').offset().top < $(window).scrollTop()) {
+            $('.back-to-top').slideDown('fast');
+        } else {
+            $('.back-to-top').slideUp('fast');
+        }
+    });
+});
