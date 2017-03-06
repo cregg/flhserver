@@ -1,8 +1,8 @@
 package v1
 
+import models.{DraftPick, Player}
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Reads, Writes}
-import v1.drafts.{DraftPick, Player}
 
 
 object JSParsers {

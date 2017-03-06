@@ -4,15 +4,16 @@ import com.github.scribejava.apis.YahooApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.{OAuth1AccessToken, OAuthRequest, Verb}
 import com.redis.RedisClient
+import models.Player
 import play.api.libs.json._
 import play.api.mvc.{Action, AnyContent, Controller, Request}
 import v1.YahooRoutes
-import v1.JSParsers._
-import v1.drafts.Player
 /**
   * Created by cleclair on 2017-01-19.
   */
 class PlayersController extends Controller{
+
+  implicit def playerWrites = Json.writes[Player]
 
   val oAuthService = new ServiceBuilder()
     .apiKey("dj0yJmk9VjEyMzZleFZCMnAxJmQ9WVdrOVJWRnpWM0IwTlRnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD03ZA--")

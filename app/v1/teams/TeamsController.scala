@@ -1,43 +1,12 @@
 package v1.teams
 
-import com.github.scribejava.apis.YahooApi
-import com.github.scribejava.core.builder.ServiceBuilder
-import com.github.scribejava.core.model.{OAuth1AccessToken, OAuthRequest, Verb}
-import com.redis.RedisClient
+import com.github.scribejava.core.model.{OAuth1AccessToken, Verb}
+import models.{DraftPick, DraftSummary, Player}
 import play.api.libs.json._
 import play.api.mvc.{Action, AnyContent, Controller, Request}
-import v1.JSParsers._
+import services.RedisService._
+import services.YahooOauthService
 import v1.YahooRoutes
-import v1.drafts.{DraftPick, Player}
-
-
-
-case class DraftSummary(corePicks: IndexedSeq[Player],
-                        waiverPicks: IndexedSeq[Player] = IndexedSeq(),
-                        bestPick: Player,
-                        worstPick: Player,
-                        mostAccurate: Player,
-                        score: Int,
-                        teamName: String = "") {
-  val newLine = "\n"
-
-  override def toString: String = s"Curent Draft Score: $score\n" +
-    s"Total Draftees Still on team: ${corePicks.size}\n" +
-    s"Average Draft Score: ${score.toDouble / corePicks.size.toDouble}\n" +
-    s"Best Pick: ${bestPick.name}(${bestPick.draftPos - bestPick.rank})\n" +
-    s"Worst Pick: ${worstPick.name}(${worstPick.draftPos - worstPick.rank})\n" +
-    s"Most Accurate Pick: ${mostAccurate.name}(${(mostAccurate.draftPos - mostAccurate.rank).abs})\n\n" +
-    s"-- Draft Summary --\n\n${corePicks.grouped(3).map(prettyPrintMultiPlayers).mkString(newLine + newLine)}"
-
-  def prettyPrintMultiPlayers(initialSeq: IndexedSeq[Player]): String = {
-    val players = if(initialSeq.size == 3) initialSeq else if(initialSeq.size == 2) initialSeq ++ IndexedSeq(initialSeq(1)) else initialSeq ++ initialSeq ++ initialSeq
-    val result: String = f"Name: ${players(0).name}%-25s" + f"Name: ${players(1).name}%-25s" + f"Name: ${players(2).name}" +
-    f"\nCurrent Rank: ${players(0).rank}%-25s" + f"Current Rank: ${players(1).rank}%-25s" + f"Current Rank: ${players(2).rank}" +
-    f"\nDraft Position: ${players(0).draftPos}%-25s" + f"Draft Position: ${players(1).draftPos}%-25s" + f"Draft Position: ${players(2).draftPos}" +
-    f"\nScore: ${players(0).draftPos - players(0).rank}%-25s" + f"Score: ${players(1).draftPos - players(1).rank}%-25s" + f"Score: ${players(2).draftPos - players(2).rank}%-25s"
-    result
-  }
-}
 
 class TeamsController extends Controller{
 
@@ -45,22 +14,13 @@ class TeamsController extends Controller{
   implicit val jsStringReads = Json.reads[JsString]
   implicit val draftSummaryWrites = Json.writes[DraftSummary]
 
-  val oAuthService = new ServiceBuilder()
-    .apiKey("dj0yJmk9VjEyMzZleFZCMnAxJmQ9WVdrOVJWRnpWM0IwTlRnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD03ZA--")
-    .apiSecret("5be45ab806ebd392bfd04100ef2c2140ed9afc03")
-    .build(YahooApi.instance())
-
-  val redis = new RedisClient("localhost", 6379)
-
   def getToken(implicit request: Request[AnyContent]): OAuth1AccessToken = {
     val tokenString = request.headers.get("Authentication").getOrElse("")
     new OAuth1AccessToken(tokenString, redis.get(tokenString).get)
   }
 
   def get(id: String) = Action { implicit request =>
-    val yahooRequest = new OAuthRequest(Verb.GET, YahooRoutes.playersFromTeamReplaceId.replaceAll(":id", s"363.l.63462.t.$id"), oAuthService)
-    oAuthService.signRequest(getToken, yahooRequest)
-    val yahooResponse = yahooRequest.send()
+    val yahooResponse = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.playersFromTeamReplaceId.replaceAll(":id", s"363.l.63462.t.$id"), getToken)
     val jsonResponse = Json.parse(yahooResponse.getBody)
     val playersJson = (jsonResponse \ "fantasy_content" \ "team" \ 1 \ "players").as[JsObject].values.toIndexedSeq.filter(_.isInstanceOf[JsObject])
     val leagueId = "363.l.63462"
@@ -101,9 +61,8 @@ class TeamsController extends Controller{
   }
 
   def getTeams() = Action { implicit request =>
-    val yahooRequest = new OAuthRequest(Verb.GET, YahooRoutes.usersTeams, oAuthService)
-    oAuthService.signRequest(getToken, yahooRequest)
-    val usersTeamResponse = Json.parse(yahooRequest.send().getBody)
+    val yahooRequest = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.usersTeams, getToken)
+    val usersTeamResponse = Json.parse(yahooRequest.getBody)
     val teams = usersTeamResponse \ "team"
     Ok(teams.toString)
   }
