@@ -170,6 +170,7 @@ input {
 	text-align: center;
 	font-family: roboto, sans-serif;
 	font-weight: 300;
+	margin-top: 6%;
 }
 
 .navbar {
@@ -398,6 +399,7 @@ input {
 	font-family: roboto, sans-serif;
 	font-weight: 300;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .visual-data {
@@ -459,6 +461,18 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 .data-visuals {
+	font-family: roboto, sans-serif;
+	font-size: 2em;
+	color: #aacbff;;
+	opacity: 0.75;
+	font-weight: 200;
+	margin-left: 12%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	text-transform: uppercase;
+}
+
+.coming-soon {
 	font-family: roboto, sans-serif;
 	font-size: 2em;
 	color: #aacbff;;
@@ -624,6 +638,13 @@ select {
 		margin-left: 0;
 		width: 270px;
 	}
+
+	.newid-button {
+		width: 25%;
+		font-size: 1.2em;
+		height: 45px;
+	}
+
 }
 
 @media (min-width: 1200px) {

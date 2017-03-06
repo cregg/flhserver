@@ -118,6 +118,8 @@ function showPlayerData(data) {
           }
       }
   });
+
+  
 }
 
 function storeAuthCode(cname) {

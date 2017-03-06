@@ -1,18 +1,22 @@
 $('.data-selector-draft').click(function() {
-	$('.coming-soon').fadeOut();	
+	$('.coming-soon').fadeOut(1);	
 	$('.data-selector-draft').addClass('active');
 	$('.data-selector-goalie').removeClass('active');
 	$('#barChart').fadeIn();
-	$('.data-visuals').fadeIn();
+	$('.data-visuals').fadeIn(1);
 });
 
 $('.data-selector-goalie').click(function() {
 	$('.data-selector-goalie').addClass('active');
 	$('.data-selector-draft').removeClass('active');
+	$('.data-visuals').fadeOut(1);
 	$('#barChart').fadeOut();
-	$('.data-visuals').fadeOut();
-	$('.coming-soon').fadeIn();
-	$('.coming-soon').html("Hello");
+	$('.coming-soon').fadeIn(1);
+});
+
+$('.newid-button').click(function() {
+	$('#barChart').addClass('hide');
+	$('#barChart').fadeIn();
 });
 
 
@@ -28,14 +32,6 @@ $('a[href*="#"]:not([href="#"]):not([href="#show"]):not([href="#hide"])').click(
 		}
 	}
 });
-
-/*
-
-	
-Scroll Up Button 
-http://mou.me.uk/2012/05/18/animated-scrolling-back-to-top-link-using-jquery/
-
-*/
 
 
 $(document).ready(function() {
