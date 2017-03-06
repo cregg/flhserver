@@ -24,9 +24,7 @@ class SessionController extends Controller{
       case (oauthToken: OAuth1RequestToken, oauthSecret: String) => {
         val token: OAuth1AccessToken = yahooService.accessToken(oauthSecret)
         redis.set(token.getToken, token.getTokenSecret)
-        Ok(views.html.stats()).withCookies(
-          Cookie("auth_token", token.getToken, maxAge = Some(20), httpOnly = false)
-        )
+        Ok(views.html.stats()).withCookies(Cookie("auth_token", token.getToken, maxAge = Some(20), httpOnly = false))
       }
       case _ => Ok(Json.toJson(Map("error" -> "Couldn't get token.")))
     }

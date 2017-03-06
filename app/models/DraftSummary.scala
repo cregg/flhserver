@@ -1,5 +1,9 @@
 package models
 
+import play.api.libs.json._
+import services.RedisService._
+import v1.JSParsers._
+
 case class DraftSummary(corePicks: IndexedSeq[Player],
                         waiverPicks: IndexedSeq[Player] = IndexedSeq(),
                         bestPick: Player,
@@ -25,4 +29,46 @@ case class DraftSummary(corePicks: IndexedSeq[Player],
       f"\nScore: ${players(0).draftPos - players(0).rank}%-25s" + f"Score: ${players(1).draftPos - players(1).rank}%-25s" + f"Score: ${players(2).draftPos - players(2).rank}%-25s"
     result
   }
+}
+
+object DraftSummary {
+
+  def generateDraftSummary(jsonString: String, id: String): DraftSummary = {
+    val jsonResponse = Json.parse(jsonString)
+    val playersJson = (jsonResponse \ "fantasy_content" \ "team" \ 1 \ "players").as[JsObject].values.toIndexedSeq.filter(_.isInstanceOf[JsObject])
+    val leagueId = "363.l.63462"
+    val teamName = (jsonResponse \ "fantasy_content" \ "team" \ 0 \ 2 \ "name").asInstanceOf[JsDefined].value.asInstanceOf[JsString].value
+    val players = playersJson.map((playerJson) =>
+      Player(
+        (playerJson \ "player" \ 0 \ 0 \ "player_key").as[String],
+        (playerJson \ "player" \ 0 \ 2 \ "name" \ "full").as[String]
+      )
+    )
+    val rankedPlayers = Json.parse(redis.get(leagueId).getOrElse("")).as[JsArray].value.map(_.as[Player])
+    val draftPicksByTeam = Json.parse(redis.get(leagueId + "_draft").getOrElse("")).as[JsArray].value.map(_.as[DraftPick]).filter(_.team_key.substring(12).contains(id))
+    val draftedPlayersIds = draftPicksByTeam.map(_.player_key)
+    val playerIdDraftPickMap: Map[String, DraftPick] = (draftedPlayersIds zip draftPicksByTeam).toMap
+    val drafterPlayersOnRosterIds: IndexedSeq[String] = players.filter(player => draftedPlayersIds.contains(player.id)).map(_.id)
+
+    val rankedPlayersByRank: Seq[(Player, Int)] = rankedPlayers.zipWithIndex
+    val finalPlayers = rankedPlayersByRank.filter(player => drafterPlayersOnRosterIds.contains(player._1.id))
+      .map{
+        playerRankTuple =>
+          val playerId: Player = playerRankTuple._1
+          playerRankTuple._1.copy(rank = playerRankTuple._2 + 1, draftPos = playerIdDraftPickMap(playerId.id).pick)
+      }.toIndexedSeq
+    val bestPickPlayer = finalPlayers.maxBy(player => player.draftPos - player.rank)
+    val worstPickPlayer = finalPlayers.maxBy(player => player.rank - player.draftPos)
+    val mostAccuratePlayer: Player = finalPlayers.minBy(player => (player.draftPos - player.rank).abs)
+    val draftScore: Int = finalPlayers.foldLeft(0)((draftScore, player) => draftScore + (player.draftPos - player.rank))
+    DraftSummary(
+      corePicks = finalPlayers.sortBy(_.draftPos),
+      bestPick = bestPickPlayer,
+      worstPick = worstPickPlayer,
+      mostAccurate = mostAccuratePlayer,
+      score = draftScore,
+      teamName = teamName
+    )
+  }
+
 }
