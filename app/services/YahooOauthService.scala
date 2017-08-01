@@ -73,16 +73,17 @@ class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aServ
 
 object YahooOauthService {
 
-  val key = "dj0yJmk9VjEyMzZleFZCMnAxJmQ9WVdrOVJWRnpWM0IwTlRnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD03ZA--"
-  val secret = "5be45ab806ebd392bfd04100ef2c2140ed9afc03"
+  val key = System.getenv("YAHOO_KEY")
+  val secret = System.getenv("YAHOO_SECRET")
+  val callbackURL = System.getenv("YAHOO_CALLBACK")
 
-  val oAuthService: OAuth10aService = new ServiceBuilder()
+  val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
     .apiKey(key)
     .apiSecret(secret)
     .build(YahooApi.instance())
 
   def initService(): YahooOauthService = {
-    val oAuthService: OAuth10aService = new ServiceBuilder()
+    val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
       .apiKey(key)
       .apiSecret(secret)
       .build(YahooApi.instance())
@@ -90,7 +91,7 @@ object YahooOauthService {
   }
 
   def initService(token: OAuth1RequestToken): YahooOauthService = {
-    val oAuthService: OAuth10aService = new ServiceBuilder()
+    val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
       .apiKey(key)
       .apiSecret(secret)
       .build(YahooApi.instance())
