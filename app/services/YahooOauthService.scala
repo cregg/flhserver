@@ -7,7 +7,7 @@ import com.github.scribejava.core.oauth.OAuth10aService
 import models.{DraftPick, Player}
 import play.api.libs.json.{JsArray, JsObject, Json}
 import v1.YahooRoutes
-import v1.JSParsers._
+import v1.JsonUtil._
 import services.RedisService._
 
 /**
@@ -50,7 +50,7 @@ class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aServ
       )
       newPlayers
     }
-    redis.set(leagueId, Json.toJson(players))
+    redis.set(leagueId, toJson(players))
     players
   }
 
@@ -66,7 +66,7 @@ class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aServ
         (draftJson \ "player_key").as[String]
       )
     )
-    redis.set("363.l.63462_draft", Json.toJson(picks))
+    redis.set("363.l.63462_draft", toJson(picks))
     picks
   }
 }

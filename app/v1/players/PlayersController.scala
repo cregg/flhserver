@@ -12,8 +12,6 @@ import services.YahooOauthService
   */
 class PlayersController extends Controller{
 
-  implicit def playerWrites = Json.writes[Player]
-
   def getToken(implicit request: Request[AnyContent]): OAuth1AccessToken = {
     val tokenString = request.headers.get("Authentication").getOrElse("")
     new OAuth1AccessToken(tokenString, redis.get(tokenString).get)

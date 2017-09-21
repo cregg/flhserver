@@ -2,7 +2,7 @@ package models
 
 import play.api.libs.json._
 import services.RedisService._
-import v1.JSParsers._
+import v1.JsonUtil._
 
 case class DraftSummary(corePicks: IndexedSeq[Player],
                         waiverPicks: IndexedSeq[Player] = IndexedSeq(),
@@ -44,8 +44,9 @@ object DraftSummary {
         (playerJson \ "player" \ 0 \ 2 \ "name" \ "full").as[String]
       )
     )
-    val rankedPlayers = Json.parse(redis.get(leagueId).getOrElse("")).as[JsArray].value.map(_.as[Player])
-    val draftPicksByTeam = Json.parse(redis.get(leagueId + "_draft").getOrElse("")).as[JsArray].value.map(_.as[DraftPick]).filter(_.team_key.substring(12).contains(id))
+    val rankedPlayers: Seq[Player] = fromJson[Seq[Player]](redis.get(leagueId).getOrElse(""))
+    val draftPicksByTeam: Seq[DraftPick] = fromJson[Seq[DraftPick]](redis.get(leagueId + "_draft").getOrElse("")).filter(_.team_key == s"363.l.63462.t.${id}")
+
     val draftedPlayersIds = draftPicksByTeam.map(_.player_key)
     val playerIdDraftPickMap: Map[String, DraftPick] = (draftedPlayersIds zip draftPicksByTeam).toMap
     val drafterPlayersOnRosterIds: IndexedSeq[String] = players.filter(player => draftedPlayersIds.contains(player.id)).map(_.id)

@@ -20,8 +20,9 @@ function showTeamJSON(teamID) {
     type: 'GET',
     dataType: 'json',
     crossDomain: true,
-    success: function(data) { 
-      showPlayerData(data);
+    success: function(data) {
+        document.getElementById("barChart").innerHTML = ""
+        showPlayerData(data);
       },
     error: function() { alert('boo!'); },
     beforeSend: setHeader

@@ -7,14 +7,9 @@ import play.api.mvc.{Action, AnyContent, Controller, Request}
 import services.RedisService._
 import services.{RedisService, YahooOauthService}
 import v1.YahooRoutes
-import v1.JSParsers._
+import v1.JsonUtil._
 
 class TeamsController extends Controller{
-
-  implicit val draftSummaryReads = Json.reads[DraftSummary]
-  implicit val draftSummaryWrites = Json.writes[DraftSummary]
-
-  implicit val jsStringReads = Json.reads[JsString]
 
   def getToken(implicit request: Request[AnyContent]): OAuth1AccessToken = {
     val tokenString = request.headers.get("Authentication").getOrElse("")
@@ -26,7 +21,7 @@ class TeamsController extends Controller{
     RedisService.checkDraftResults(getToken)
     RedisService.getPlayerRankings(getToken)
     val teamDraftSummary: DraftSummary = DraftSummary.generateDraftSummary(yahooResponse.getBody, id)
-    Ok(Json.toJson(teamDraftSummary))
+    Ok(toJson(teamDraftSummary))
   }
 
   def getTeams = Action { implicit request =>

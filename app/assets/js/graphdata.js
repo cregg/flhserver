@@ -23,8 +23,12 @@ function showTeamJSON(teamID) {
     type: 'GET',
     dataType: 'json',
     crossDomain: true,
-    success: function(data) { 
-      showPlayerData(data);
+    success: function(data) {
+        document.getElementById("barChart").innerHTML = ""
+        var canvas = document.getElementById("barChart")
+        var ctx = canvas.getContext("2d")
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        showPlayerData(data);
       },
     error: function() { alert('boo!'); },
     beforeSend: setHeader
