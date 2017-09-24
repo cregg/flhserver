@@ -7,18 +7,14 @@ import play.api.mvc.{Action, AnyContent, Controller, Request}
 import services.RedisService._
 import services.YahooOauthService
 import v1.YahooRoutes
+import v1.controllers.FLHController
 
 /**
   * Created by cleclair on 2017-02-02.
   */
-class DraftsController extends Controller{
+class DraftsController extends FLHController {
 
   implicit def draftWrites = Json.writes[DraftPick]
-
-  def getToken(implicit request: Request[AnyContent]): OAuth1AccessToken = {
-    val tokenString = request.headers.get("Authentication").getOrElse("")
-    new OAuth1AccessToken(tokenString, redis.get(tokenString).get)
-  }
 
   def get(teamId: String) = Action { implicit request =>
     val yahooResponse = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.draftResults, getToken)

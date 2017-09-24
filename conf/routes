@@ -1,16 +1,18 @@
 GET /                       controllers.HomeController.index
 
 GET /v1/sessions            v1.session.SessionController.index
-GET /v1/sessions/callback   v1.session.SessionController.callback(oauth_token: String ?="", oauth_verifier: String ?="")
+GET /v1/sessions/callback   v1.session.SessionController.callback(code: String ?="", state: String ?="")
 
 GET /v1/players             v1.players.PlayersController.index
 
 GET /v1/teams/              v1.teams.TeamsController.getTeams
 GET /v1/teams/:id           v1.teams.TeamsController.get(id: String)
 
+GET /v1/users/              v1.users.UsersController.get
+
 GET /v1/drafts/:id          v1.drafts.DraftsController.get(id: String)
 
-->  /v1/posts               v1.post.PostRouter
+
 
 
 # Map static resources from the /public folder to the /assets URL path

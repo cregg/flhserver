@@ -3,7 +3,7 @@ package services
 import com.github.scribejava.apis.YahooApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model._
-import com.github.scribejava.core.oauth.OAuth10aService
+import com.github.scribejava.core.oauth.{OAuth10aService, OAuth20Service}
 import models.{DraftPick, Player}
 import play.api.libs.json.{JsArray, JsObject, Json}
 import v1.YahooRoutes
@@ -13,32 +13,28 @@ import services.RedisService._
 /**
   * Created by cleclair on 2017-03-05.
   */
-class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aService) {
+class YahooOauthService(val service: OAuth20Service) {
 
-  def this() = this(null, YahooOauthService.oAuthService)
+  def this() = this(YahooOauthService.oAuthService)
 
-  def url(): String = service.getAuthorizationUrl(token)
+  def url() = service.getAuthorizationUrl
 
-  def accessToken(oauthSecret: String): OAuth1AccessToken = service.getAccessToken(token, oauthSecret)
-
-  def makeRequest(verb: Verb, url: String, auth1AccessToken: OAuth1AccessToken): Response = {
+  def makeRequest(verb: Verb, url: String, auth2AccessToken: OAuth2AccessToken): Response = {
     val request = new OAuthRequest(Verb.GET, url, service)
-    service.signRequest(auth1AccessToken, request)
+    signRequest(auth2AccessToken, request)
     request.send()
   }
 
-  def getLeagueIDFromTeamID(verb: Verb, url: String, auth1AccessToken: OAuth1AccessToken): Response = {
-    val request = new OAuthRequest(Verb.GET, YahooRoutes.draftResults, service)
-    service.signRequest(auth1AccessToken, request)
-    request.send()
+  private def signRequest(accessToken: OAuth2AccessToken, request: AbstractRequest): Unit = {
+    request.addHeader("Authorization", "Bearer " + accessToken.getAccessToken)
   }
 
-  def updatePlayerRankings(oAuth1AccessToken: OAuth1AccessToken) = {
+  def updatePlayerRankings(oAuth2AccessToken: OAuth2AccessToken) = {
     val playerCounts = IndexedSeq("0", "25", "50", "75", "100", "125", "150", "175", "200", "225", "250", "275", "300", "325", "350")
     var leagueId = ""
     val players = playerCounts.flatMap{ (startCount) =>
       val playerUrl = YahooRoutes.playersFromLeague.replaceAll("\\{start\\}", startCount)
-      val jsonResponse = Json.parse(makeRequest(Verb.GET, playerUrl, oAuth1AccessToken).getBody)
+      val jsonResponse = Json.parse(makeRequest(Verb.GET, playerUrl, oAuth2AccessToken).getBody)
       leagueId = (jsonResponse \ "fantasy_content" \ "league" \ 0 \ "league_key").as[String]
       val players = (jsonResponse \ "fantasy_content" \ "league" \ 1 \ "players").as[JsObject].values.toIndexedSeq.filter(_.isInstanceOf[JsObject])
       redis.set(leagueId, players.toString)
@@ -54,8 +50,8 @@ class YahooOauthService(val token: OAuth1RequestToken, val service: OAuth10aServ
     players
   }
 
-  def updateLeagueDraft(oAuth1AccessToken: OAuth1AccessToken): IndexedSeq[DraftPick] = {
-    val yahooResponse = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.draftResults, oAuth1AccessToken)
+  def updateLeagueDraft(oAuth2AccessToken: OAuth2AccessToken): IndexedSeq[DraftPick] = {
+    val yahooResponse = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.draftResults, oAuth2AccessToken)
     val draftResponse = Json.parse(yahooResponse.getBody)
     val draftPicksJson = (draftResponse \ "query" \ "results" \ "league" \ "draft_results" \ "draft_result").as[JsArray]
     val picks = draftPicksJson.value.toIndexedSeq.map((draftJson) =>
@@ -76,26 +72,20 @@ object YahooOauthService {
   val key = System.getenv("YAHOO_KEY")
   val secret = System.getenv("YAHOO_SECRET")
   val callbackURL = System.getenv("YAHOO_CALLBACK")
+  val RESPONSE_TYPE = "code"
 
-  val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
+  val oAuthService: OAuth20Service = new ServiceBuilder().callback(callbackURL)
     .apiKey(key)
     .apiSecret(secret)
-    .build(YahooApi.instance())
+    .responseType(RESPONSE_TYPE)
+    .build(YahooApi20.instance())
 
   def initService(): YahooOauthService = {
-    val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
+    val oAuthService: OAuth20Service  = new ServiceBuilder().callback(callbackURL)
       .apiKey(key)
       .apiSecret(secret)
-      .build(YahooApi.instance())
-    new YahooOauthService(oAuthService.getRequestToken, oAuthService)
+      .responseType(RESPONSE_TYPE)
+      .build(YahooApi20.instance())
+    new YahooOauthService(oAuthService)
   }
-
-  def initService(token: OAuth1RequestToken): YahooOauthService = {
-    val oAuthService: OAuth10aService = new ServiceBuilder().callback(callbackURL)
-      .apiKey(key)
-      .apiSecret(secret)
-      .build(YahooApi.instance())
-    new YahooOauthService(token, oAuthService)
-  }
-
 }

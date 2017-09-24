@@ -1,20 +1,15 @@
 package v1.teams
 
-import com.github.scribejava.core.model.{OAuth1AccessToken, Response, Verb}
+import com.github.scribejava.core.model.{Response, Verb}
 import models.DraftSummary
-import play.api.libs.json.{Json, _}
-import play.api.mvc.{Action, AnyContent, Controller, Request}
-import services.RedisService._
+import play.api.libs.json.Json
+import play.api.mvc.Action
 import services.{RedisService, YahooOauthService}
-import v1.YahooRoutes
 import v1.JsonUtil._
+import v1.YahooRoutes
+import v1.controllers.FLHController
 
-class TeamsController extends Controller{
-
-  def getToken(implicit request: Request[AnyContent]): OAuth1AccessToken = {
-    val tokenString = request.headers.get("Authentication").getOrElse("")
-    new OAuth1AccessToken(tokenString, redis.get(tokenString).get)
-  }
+class TeamsController extends FLHController {
 
   def get(id: String) = Action { implicit request =>
     val yahooResponse: Response = new YahooOauthService().makeRequest(Verb.GET, YahooRoutes.playersFromTeamReplaceId.replaceAll(":id", s"363.l.63462.t.$id"), getToken)
