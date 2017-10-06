@@ -1,7 +1,7 @@
 package v1.games
 
 import play.api.libs.json.{JsArray, Json}
-import v1.JsonUtil.fromJson
+import services.JsonUtil.fromJson
 
 /**
   * Created by cleclair on 2017-09-20.

@@ -5,7 +5,7 @@ import models.DraftSummary
 import play.api.libs.json.Json
 import play.api.mvc.Action
 import services.{RedisService, YahooOauthService}
-import v1.JsonUtil._
+import services.JsonUtil._
 import v1.YahooRoutes
 import v1.controllers.FLHController
 

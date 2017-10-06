@@ -2,7 +2,7 @@ package models
 
 import play.api.libs.json._
 import services.RedisService._
-import v1.JsonUtil._
+import services.JsonUtil._
 
 case class DraftSummary(corePicks: IndexedSeq[Player],
                         waiverPicks: IndexedSeq[Player] = IndexedSeq(),

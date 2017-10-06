@@ -7,7 +7,7 @@ import com.github.scribejava.core.oauth.{OAuth10aService, OAuth20Service}
 import models.{DraftPick, Player}
 import play.api.libs.json.{JsArray, JsObject, Json}
 import v1.YahooRoutes
-import v1.JsonUtil._
+import JsonUtil._
 import services.RedisService._
 
 /**

@@ -6,7 +6,7 @@ import com.github.scribejava.core.model.{OAuth1AccessToken, OAuth2AccessToken}
 import com.redis.RedisClient
 import models.{DraftPick, Player}
 import play.api.libs.json.{JsArray, Json}
-import v1.JsonUtil._
+import JsonUtil._
 
 import scala.util.{Properties, Try}
 

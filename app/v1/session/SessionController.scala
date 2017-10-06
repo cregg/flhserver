@@ -19,7 +19,7 @@ class SessionController extends Controller{
     val token: OAuth2AccessToken = yahooService.service.getAccessToken(oauth_code)
 
     Ok(
-      views.html.stats()).withCookies(Cookie("auth_token", token.getAccessToken, maxAge = Some(20), httpOnly = false)
+      views.html.users()).withCookies(Cookie("auth_token", token.getAccessToken, maxAge = Some(20), httpOnly = false)
     )
   }
 }
