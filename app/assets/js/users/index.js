@@ -12,7 +12,7 @@ $.ajax({
     dataType: 'json',
     crossDomain: true,
     success: function(data) {
-        console.log(data);
+        let teams = data["teams"];
     },
     error: function() { alert('boo!'); },
     beforeSend: setHeader
