@@ -1,3 +1,4 @@
+<style src="../../app/assets/css/global.css"></style>
 <template>
   <div class="page">
     <counter></counter>

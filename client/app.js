@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
-import App from './components/App'
+import App from './components/App.vue'
 import router from './router'
 import store from './store'
-import { test } from 'env.js'
+import ENV from 'env.js'
 
 sync(store, router)
 
-console.log(test)
+console.log(ENV.apiURL)
 
 const app = new Vue({
   router,
