@@ -6,5 +6,8 @@ target
 /.project
 /.settings
 /RUNNING_PID
-
 /.vscode
+node_modules
+*.log
+.DS_Store
+/dist
